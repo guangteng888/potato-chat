@@ -1,33 +1,73 @@
-import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Users, 
-  MessageSquare, 
-  TrendingUp, 
-  BarChart3, 
   Settings, 
-  LogOut,
-  Menu,
+  LogOut, 
+  Menu, 
   X,
+  Server,
+  TrendingUp,
+  Smartphone,
+  Briefcase,
   Bell,
-  Search
-} from 'lucide-react'
+  Search,
+  User
+} from 'lucide-react';
 
-const Layout = ({ children, onLogout }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const location = useLocation()
+const Layout = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const navigation = [
-    { name: '仪表板', href: '/dashboard', icon: LayoutDashboard },
-    { name: '用户管理', href: '/users', icon: Users },
-    { name: '内容管理', href: '/content', icon: MessageSquare },
-    { name: '交易管理', href: '/trading', icon: TrendingUp },
-    { name: '数据分析', href: '/analytics', icon: BarChart3 },
-    { name: '系统设置', href: '/settings', icon: Settings },
-  ]
+    { 
+      name: '数据仪表板', 
+      href: '/dashboard', 
+      icon: LayoutDashboard,
+      description: '实时监控关键指标'
+    },
+    { 
+      name: '用户管理', 
+      href: '/users', 
+      icon: Users,
+      description: '管理用户信息和权限'
+    },
+    { 
+      name: 'API管理', 
+      href: '/api-management', 
+      icon: Server,
+      description: '监控和管理API服务'
+    },
+    { 
+      name: '交易记录', 
+      href: '/trading-records', 
+      icon: TrendingUp,
+      description: '查看和分析交易数据'
+    },
+    { 
+      name: '应用审核', 
+      href: '/app-review', 
+      icon: Smartphone,
+      description: '管理应用提交和审核'
+    },
+    { 
+      name: '商业管理', 
+      href: '/business-management', 
+      icon: Briefcase,
+      description: '分析商业模式和收入'
+    }
+  ];
 
-  const isActive = (href) => location.pathname === href
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
+  const isCurrentPath = (path) => {
+    return location.pathname === path;
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -37,7 +77,7 @@ const Layout = ({ children, onLogout }) => {
           className="fixed inset-0 z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         >
-          <div className="fixed inset-0 bg-gray-600 bg-opacity-75" />
+          <div className="fixed inset-0 bg-gray-600 bg-opacity-75"></div>
         </div>
       )}
 
@@ -48,55 +88,69 @@ const Layout = ({ children, onLogout }) => {
         lg:translate-x-0 lg:static lg:inset-0
       `}>
         <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
-          <div className="flex items-center space-x-3">
-            <div className="text-2xl">🥔</div>
-            <div>
-              <h1 className="text-lg font-bold text-gray-900">Potato Chat</h1>
-              <p className="text-xs text-gray-500">管理后台</p>
+          <div className="flex items-center">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">PC</span>
             </div>
+            <span className="ml-2 text-xl font-semibold text-gray-900">Potato Chat</span>
           </div>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="lg:hidden p-1 rounded-md text-gray-400 hover:text-gray-500"
+            className="lg:hidden text-gray-400 hover:text-gray-600"
           >
-            <X className="w-5 h-5" />
+            <X className="w-6 h-6" />
           </button>
         </div>
 
         <nav className="mt-6 px-3">
           <div className="space-y-1">
             {navigation.map((item) => {
-              const Icon = item.icon
+              const Icon = item.icon;
+              const current = isCurrentPath(item.href);
+              
               return (
                 <Link
                   key={item.name}
                   to={item.href}
                   className={`
-                    group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors
-                    ${isActive(item.href)
-                      ? 'bg-orange-100 text-orange-700 border-r-2 border-orange-500'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                    group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-colors duration-200
+                    ${current 
+                      ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' 
+                      : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                     }
                   `}
                   onClick={() => setSidebarOpen(false)}
                 >
                   <Icon className={`
                     mr-3 h-5 w-5 flex-shrink-0
-                    ${isActive(item.href) ? 'text-orange-500' : 'text-gray-400 group-hover:text-gray-500'}
+                    ${current ? 'text-blue-700' : 'text-gray-400 group-hover:text-gray-500'}
                   `} />
-                  {item.name}
+                  <div className="flex-1">
+                    <div className="font-medium">{item.name}</div>
+                    <div className="text-xs text-gray-500 mt-0.5">{item.description}</div>
+                  </div>
                 </Link>
-              )
+              );
             })}
           </div>
         </nav>
 
-        <div className="absolute bottom-0 left-0 right-0 p-3">
+        {/* 用户信息和退出 */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
+          <div className="flex items-center mb-3">
+            <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+              <User className="w-4 h-4 text-gray-600" />
+            </div>
+            <div className="ml-3">
+              <div className="text-sm font-medium text-gray-900">管理员</div>
+              <div className="text-xs text-gray-500">admin@potatochat.com</div>
+            </div>
+          </div>
           <button
-            onClick={onLogout}
-            className="w-full flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 hover:text-gray-900 transition-colors"
+            onClick={handleLogout}
+            className="w-full flex items-center px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200"
           >
-            <LogOut className="mr-3 h-5 w-5 text-gray-400" />
+            <LogOut className="mr-3 h-4 w-4" />
             退出登录
           </button>
         </div>
@@ -107,55 +161,57 @@ const Layout = ({ children, onLogout }) => {
         {/* 顶部导航栏 */}
         <div className="sticky top-0 z-40 bg-white shadow-sm border-b border-gray-200">
           <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
-            >
-              <Menu className="w-5 h-5" />
-            </button>
-
-            <div className="flex-1 flex justify-center lg:justify-start">
-              <div className="w-full max-w-lg lg:max-w-xs">
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Search className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-                    placeholder="搜索..."
-                    type="search"
-                  />
-                </div>
+            <div className="flex items-center">
+              <button
+                onClick={() => setSidebarOpen(true)}
+                className="lg:hidden text-gray-400 hover:text-gray-600"
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+              
+              {/* 面包屑导航 */}
+              <div className="ml-4 lg:ml-0">
+                <h1 className="text-lg font-semibold text-gray-900">
+                  {navigation.find(item => isCurrentPath(item.href))?.name || '管理后台'}
+                </h1>
               </div>
             </div>
 
             <div className="flex items-center space-x-4">
-              <button className="p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-md">
-                <Bell className="w-5 h-5" />
-              </button>
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm font-medium">管</span>
-                </div>
-                <div className="hidden sm:block">
-                  <div className="text-sm font-medium text-gray-900">管理员</div>
-                  <div className="text-xs text-gray-500">admin@potatochat.com</div>
+              {/* 搜索框 */}
+              <div className="hidden md:block">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <input
+                    type="text"
+                    placeholder="搜索..."
+                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  />
                 </div>
               </div>
+
+              {/* 通知铃铛 */}
+              <button className="relative p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-50">
+                <Bell className="w-5 h-5" />
+                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+              </button>
+
+              {/* 设置 */}
+              <button className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-50">
+                <Settings className="w-5 h-5" />
+              </button>
             </div>
           </div>
         </div>
 
         {/* 页面内容 */}
-        <main className="py-6">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {children}
-          </div>
+        <main className="p-4 sm:p-6 lg:p-8">
+          <Outlet />
         </main>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
 
