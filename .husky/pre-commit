@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run lint-staged
+npx lint-staged
+
+# Run type checking
+echo "🔍 Running TypeScript checks..."
+cd PotatoChatDesktop/potato-chat-desktop-frontend && npx tsc --noEmit
+cd ../../potato-chat-web && npx tsc --noEmit
+cd ../PotatoChatAdmin/frontend && npx tsc --noEmit
+
+echo "✅ Pre-commit checks passed!"
+

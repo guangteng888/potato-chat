@@ -1,0 +1,87 @@
+{
+  "name": "potato-chat",
+  "version": "1.0.0",
+  "description": "Cross-platform social finance application",
+  "private": true,
+  "workspaces": [
+    "PotatoChatDesktop",
+    "PotatoChatMobile",
+    "PotatoChatIOS", 
+    "potato-chat-web",
+    "PotatoChatAdmin/frontend",
+    "PotatoChatAdmin/backend"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm run install:desktop && npm run install:mobile && npm run install:ios && npm run install:web && npm run install:admin",
+    "install:desktop": "cd PotatoChatDesktop && npm install && cd potato-chat-desktop-frontend && npm install",
+    "install:mobile": "cd PotatoChatMobile && npm install",
+    "install:ios": "cd PotatoChatIOS && npm install",
+    "install:web": "cd potato-chat-web && npm install",
+    "install:admin": "cd PotatoChatAdmin/frontend && npm install && cd ../backend && npm install",
+    "dev:desktop": "cd PotatoChatDesktop && npm run dev",
+    "dev:web": "cd potato-chat-web && npm run dev",
+    "dev:admin-frontend": "cd PotatoChatAdmin/frontend && npm run dev",
+    "dev:admin-backend": "cd PotatoChatAdmin/backend && npm run dev",
+    "build:all": "./build-scripts/build-all.sh all",
+    "build:desktop": "cd PotatoChatDesktop && npm run build:all",
+    "build:web": "cd potato-chat-web && npm run build",
+    "build:mobile": "cd PotatoChatMobile/android && ./gradlew assembleRelease",
+    "lint": "npm run lint:desktop && npm run lint:web && npm run lint:admin",
+    "lint:desktop": "cd PotatoChatDesktop/potato-chat-desktop-frontend && npm run lint",
+    "lint:web": "cd potato-chat-web && npm run lint",
+    "lint:admin": "cd PotatoChatAdmin/frontend && npm run lint",
+    "test": "npm run test:desktop && npm run test:web && npm run test:admin",
+    "test:desktop": "cd PotatoChatDesktop/potato-chat-desktop-frontend && npm run test",
+    "test:web": "cd potato-chat-web && npm run test",
+    "test:admin": "cd PotatoChatAdmin/frontend && npm run test",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "clean": "npm run clean:desktop && npm run clean:web && npm run clean:admin",
+    "clean:desktop": "cd PotatoChatDesktop && rm -rf node_modules dist && cd potato-chat-desktop-frontend && rm -rf node_modules dist",
+    "clean:web": "cd potato-chat-web && rm -rf node_modules dist",
+    "clean:admin": "cd PotatoChatAdmin/frontend && rm -rf node_modules dist && cd ../backend && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "prettier": "^3.0.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guangteng888/potato-chat.git"
+  },
+  "keywords": [
+    "chat",
+    "trading",
+    "finance",
+    "social",
+    "cross-platform",
+    "electron",
+    "react",
+    "react-native",
+    "android",
+    "ios",
+    "web"
+  ],
+  "author": "Potato Chat Team",
+  "license": "MIT"
+}
+
