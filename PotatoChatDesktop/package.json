@@ -1,7 +1,7 @@
 {
-  "name": "potato-chat-desktop",
-  "version": "1.0.0",
-  "description": "Potato Chat Desktop Application - 社交金融一体化桌面应用",
+  "name": "instant-social-trading-desktop",
+  "version": "2.0.0",
+  "description": "即时社交交易桌面应用 - 革命性的社交交易平台",
   "main": "main.js",
   "homepage": "./",
   "scripts": {

@@ -1,6 +1,6 @@
 {
-  "name": "PotatoChatIOS",
-  "version": "1.0.0",
+  "name": "InstantSocialTradingIOS",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",

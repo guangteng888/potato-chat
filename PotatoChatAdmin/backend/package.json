@@ -1,7 +1,7 @@
 {
-  "name": "potato-chat-backend",
-  "version": "1.0.0",
-  "description": "Potato Chat 后端API服务",
+  "name": "instant-social-trading-backend",
+  "version": "2.0.0",
+  "description": "即时社交交易后端API服务",
   "main": "src/app.js",
   "type": "module",
   "scripts": {

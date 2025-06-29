@@ -1,8 +1,8 @@
-# Potato Chat 管理后台
+# 即时社交交易管理后台
 
 ## 📋 项目简介
 
-Potato Chat 管理后台是一个功能强大的管理系统，为平台管理员提供全面的数据监控、业务管理和系统控制功能。
+即时社交交易管理后台是一个功能强大的管理系统，为平台管理员提供全面的数据监控、业务管理和系统控制功能。
 
 ### 🎯 核心功能
 
@@ -26,8 +26,8 @@ Potato Chat 管理后台是一个功能强大的管理系统，为平台管理�
 
 1. **克隆项目**
 ```bash
-git clone https://github.com/your-repo/potato-chat-optimized.git
-cd potato-chat-optimized/PotatoChatAdmin
+git clone https://github.com/guangteng888/potato-chat.git
+cd potato-chat/PotatoChatAdmin
 ```
 
 2. **安装依赖**
@@ -55,7 +55,7 @@ cp .env.example .env
 编辑 `.env` 文件，配置数据库连接等信息：
 ```env
 # 数据库配置
-MONGODB_URI=mongodb://localhost:27017/potato_chat_admin
+MONGODB_URI=mongodb://localhost:27017/instant_social_trading_admin
 REDIS_URL=redis://localhost:6379
 
 # JWT配置
@@ -258,13 +258,14 @@ npm start
 
 ## 📞 联系我们
 
-- 项目主页：https://github.com/your-repo/potato-chat-optimized
-- 问题反馈：https://github.com/your-repo/potato-chat-optimized/issues
-- 邮箱：tech@potatochat.com
+- 项目主页：https://github.com/guangteng888/potato-chat
+- 问题反馈：https://github.com/guangteng888/potato-chat/issues
+- 邮箱：admin@instantsocialtrading.com
 
 ## 🔄 更新日志
 
 ### v2.0.0 (2024-12-29)
+- ✨ 项目重命名为"即时社交交易"
 - ✨ 新增数据可视化仪表板
 - ✨ 新增API管理功能
 - ✨ 新增交易记录管理系统

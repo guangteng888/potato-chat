@@ -1,7 +1,7 @@
 {
-  "name": "potato-chat",
-  "version": "1.0.0",
-  "description": "Cross-platform social finance application",
+  "name": "instant-social-trading",
+  "version": "2.0.0",
+  "description": "Revolutionary social trading platform combining instant messaging with cryptocurrency trading",
   "private": true,
   "workspaces": [
     "PotatoChatDesktop",
@@ -69,19 +69,28 @@
     "url": "https://github.com/guangteng888/potato-chat.git"
   },
   "keywords": [
-    "chat",
-    "trading",
-    "finance",
-    "social",
+    "instant-trading",
+    "social-trading",
+    "cryptocurrency",
+    "trading-platform",
+    "instant-messaging",
+    "social-network",
+    "fintech",
     "cross-platform",
     "electron",
     "react",
     "react-native",
     "android",
     "ios",
-    "web"
+    "web",
+    "blockchain",
+    "defi"
   ],
-  "author": "Potato Chat Team",
-  "license": "MIT"
+  "author": "InstantSocialTrading Team",
+  "license": "MIT",
+  "homepage": "https://instantsocialtrading.com",
+  "bugs": {
+    "url": "https://github.com/guangteng888/potato-chat/issues"
+  }
 }
 
